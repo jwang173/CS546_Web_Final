@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="card form-card">
+        <div class="card-body">
+            <h3 class="card-title">Sign In</h3>
+            <form id="login-form" method="post" action="/login">
+                <div class="form-group">
+                    <label for="username">Email</label>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                    <br>
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    <br>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default">Login</button>
+                    </div>
+                    {{#unless status}}
+                        <p>{{message}}</p>
+                    {{/unless}}
+                </div>
+            </form>
+            <a href="#" class="card-link">New customer? Create Account</a>
+        </div>
+    </div>
+</div>
