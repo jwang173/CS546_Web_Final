@@ -68,7 +68,7 @@ router.post("/login", (req, res, next) => {
   }
 });
 
-router.post("/signup", (req, res, next) => {
+router.post("/signup", async (req, res, next) => {
   let email = req.body.email;
   let name = req.body.name
   let password = req.body.password
