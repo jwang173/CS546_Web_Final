@@ -13,7 +13,7 @@ router.get("/login", (req, res) => {
   }
 });
 
-router.get("/signup", log, (req, res, next) => {
+router.get("/signup", (req, res, next) => {
   if (req.cookies.name === 'AuthCookie') {
     res.redirect("/user")
   } 
@@ -32,7 +32,7 @@ router.get("/user", auth, (req, res, next) => {
   }
 });
 
-router.get("/logout", log, (req, res, next) => {
+router.get("/logout", (req, res, next) => {
   res.clearCookie('name')
   res.redirect("/")
 });

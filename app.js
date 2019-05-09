@@ -1,9 +1,8 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const morgan = require('morgan'); // small library for our logger
-const mainRouter = require('./routes');
+const routes = require('./routes');
 const exphbs = require("express-handlebars");
-const allRouter = require('./routes');
 
 const app = express();
 
@@ -23,7 +22,7 @@ app.set("view engine", "handlebars");
 
 
 // Add API routes
-app.use(allRouter);
+routes(app);
 
 // Start the server
 app.listen(3000, () => {

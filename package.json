@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "node app"
+    "start": "node app"
   },
   "repository": {
     "type": "git",
@@ -14,17 +14,18 @@
   "keywords": [
     "food-ordering"
   ],
-  "author": "",
+  "author": "Group 2",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/kitaanaa/CS546_Web_Final/issues"
   },
   "homepage": "https://github.com/kitaanaa/CS546_Web_Final#readme",
   "dependencies": {
-    "body-parser": "^1.18.3",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.2",
-    "mongodb": "^3.2.3",
+    "mongodb": "^3.2.4",
     "morgan": "^1.9.1"
   }
 }
