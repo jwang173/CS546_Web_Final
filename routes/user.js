@@ -4,14 +4,14 @@ const users = require("../data/user");
 const auth = require("../middleware/auth")
 
 
-router.get("/login", (req, res) => {
-  if (req.cookies.name === 'AuthCookie') {
-      res.redirect("/user")
-  } 
-  else {
-      res.render("users/login", { title: "Login" });
-  }
-});
+// router.get("/login", (req, res) => {
+//   if (req.cookies.name === 'AuthCookie') {
+//       res.redirect("/user")
+//   } 
+//   else {
+//       res.render("users/login", { title: "Login" });
+//   }
+// });
 
 router.get("/signup", (req, res, next) => {
   if (req.cookies.name === 'AuthCookie') {

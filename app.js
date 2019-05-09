@@ -5,6 +5,8 @@ const app = express();
 const morgan = require('morgan'); // small library for our logger
 const routes = require('./routes');
 const exphbs = require("express-handlebars");
+const cookie = require('cookie-parser');
+const session = require('express-session')
 
 
 const static = express.static(__dirname + "/public");
@@ -13,8 +15,15 @@ app.use("/", static);
 // Middlewares Here
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-// app.use(express.static("public"));
+app.use(cookie());
 app.use(morgan('dev')); // helper for logging our routes to the console
+
+app.use(session({
+  name: 'AuthCookie',
+  secret: 'some secret string!',
+  resave: false,
+  saveUninitialized: true
+}))
 
 app.engine("handlebars", exphbs({
   defaultLayout: "main"
@@ -22,7 +31,8 @@ app.engine("handlebars", exphbs({
 app.set("view engine", "handlebars");
 
 // Add API routes
-routes(app);
+// routes(app);
+app.use(routes)
 
 // Start the server
 app.listen(3000, () => {
