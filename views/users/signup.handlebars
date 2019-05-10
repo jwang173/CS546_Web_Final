@@ -2,7 +2,7 @@
     <div class="card-body">
         <h3 class="card-title">Create Account</h3>
         <br>
-        <form id="login-form" method="post" action="/login">
+        <form id="login-form" method="post" action="/signup">
             <div class="form-group">
                 <label for="username">Email</label>
                 <input type="text" class="form-control" id="email" name="email" placeholder="Email">
@@ -17,7 +17,7 @@
                     <button type="submit" class="btn btn-dark">Create Account</button>
                 </div>
                 {{#unless status}}
-                    <p>{{message}}</p>
+                    <p class="login-message">{{message}}</p>
                 {{/unless}}
             </div>
         </form>

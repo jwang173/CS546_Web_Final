@@ -4,26 +4,27 @@ const users = require("../data/user");
 const auth = require("../middleware/auth")
 
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res, next) => {
   if (req.cookies.name === 'AuthCookie') {
-    res.redirect("/user")
-    console.log("Cookie is valid. Redirecting to /user")
+    console.log(req.session.user)
+    const thisUser = await users.getUserById(req.session.user._id)
+    res.redirect({ user: thisUser }, "/user")
   } 
   else {
-      res.render("users/login", { title: "Login" });
+    res.render("users/login", { title: "Create Account" });
   }
 });
 
 
-router.post("/", (req, res, next) => {
+router.post("/", async (req, res, next) => {
   let email = req.body.email;
   let name = req.body.name
   let password = req.body.password
   let emailresult, passwordresult
 
   if (email && password) {
-    emailresult = users.checkUsername(email);
-    passwordresult = users.matchPassword(email, password)
+    emailresult = await users.checkUsername(email);
+    passwordresult = await users.matchPassword(email, password)
 
     if (emailresult && passwordresult.status) {
         let { _id, email } = passwordresult.user
