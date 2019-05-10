@@ -32,41 +32,6 @@ router.get("/user", auth, (req, res, next) => {
   }
 });
 
-router.get("/logout", (req, res, next) => {
-  res.clearCookie('name')
-  res.redirect("/")
-});
-
-
-router.post("/login", (req, res, next) => {
-  let email = req.body.email;
-  let name = req.body.name
-  let password = req.body.password
-  let emailresult, passwordresult
-
-  if (email && password) {
-    emailresult = users.checkUsername(email);
-    passwordresult = users.matchPassword(email, password)
-
-    if (emailresult && passwordresult.status) {
-        let { _id, email } = passwordresult.user
-        res.cookie('name', 'AuthCookie')
-        let user = {
-            _id,
-            email,
-            name
-        }
-        req.session.user = user
-        res.redirect("/")
-    }
-    else {
-      res.status(401).render("users/login", { title: "Login", message: "The username or password provided is incorrect." })
-    }
-  }
-  else {
-    res.status(401).render("users/login", { title: "Login", message: "No username or password provided." })
-  }
-});
 
 router.post("/signup", async (req, res, next) => {
   let email = req.body.email;

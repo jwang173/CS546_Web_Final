@@ -1,11 +1,16 @@
 const router = require('express').Router();
 
 // Our Sub Routers
-const menuRouter = require('./menu.js');
-const userRouter = require('./user.js');
-const orderRouter = require("./order.js");
-const reviewRouter = require("./review.js");
-const loginRouter = require("./login.js");
+const menuRouter = require('./menu');
+const userRouter = require('./user');
+const orderRouter = require("./order");
+const reviewRouter = require("./review");
+const loginRouter = require('./login');
+
+
+router.get("/", (req, res) => {
+  console.log("Home route. Must add homepage.")
+});
 
 
 // Configure our main router to use these sub routes
