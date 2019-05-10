@@ -6,10 +6,12 @@ const userRouter = require('./user');
 const orderRouter = require("./order");
 const reviewRouter = require("./review");
 const loginRouter = require('./login');
+const logoutRouter = require('./logout');
+const signupRouter = require('./signup');
 
 
 router.get("/", (req, res) => {
-  console.log("Home route. Must add homepage.")
+  res.render("home/home", { title: "Home" });
 });
 
 
@@ -19,6 +21,8 @@ router.use('/menu', menuRouter);
 router.use('/order', orderRouter);
 router.use('/review', reviewRouter);
 router.use('/login', loginRouter);
+router.use('/logout', logoutRouter);
+router.use('/signup', signupRouter);
 
 
 // Fallback if the route doesn't match any of our subrouters

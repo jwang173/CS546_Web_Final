@@ -10,7 +10,7 @@ const session = require('express-session')
 
 
 const static = express.static(__dirname + "/public");
-app.use("/", static);
+app.use("/public", static);
 
 // Middlewares Here
 app.use(bodyParser.urlencoded({ extended: true }));
