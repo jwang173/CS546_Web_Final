@@ -2,8 +2,8 @@ const { checkObjectId } = require('../utils');
 const bcrypt = require('bcrypt');
 
 const mongoCollections = require("../config/mongoCollections");
-const users = mongoCollections.users;
-const orders = mongoCollections.order;
+const users = mongoCollections.usersCollection;
+const orders = mongoCollections.orderCollection;
 
 
 
