@@ -3,13 +3,13 @@ const {
   menuCollection,
   orderCollection,
   reviewCollection
-} = require('../config/mongoCollections');
-const users = require("./user") 
+} = require("../config/mongoCollections");
+const users = require("./user");
 const review = reviewCollection;
 const users_ = usersCollection;
 const { ObjectId } = require("mongodb");
 
-async function getAll() {
+async function getAllReview() {
   const reviewCollections = await review();
   let reviewList = await reviewCollections.find({}).toArray();
   return reviewList;
@@ -18,9 +18,9 @@ async function getAll() {
 async function getReviewById(id) {
   const reviewCollections = await review();
   let parsedReviewId = ObjectId.createFromHexString(id);
-  let review_ = await reviewCollections.findOne({_id: parsedReviewId});
+  let review_ = await reviewCollections.findOne({ _id: parsedReviewId });
 
-  if(review_ === null) {
+  if (review_ === null) {
     throw `There is no such food with the id of ${id}`;
   }
   return review_;
@@ -35,20 +35,43 @@ async function addReview(userId, date, stars, comment) {
   const newReview = {
     userId: userThatPosted._id,
     date: date,
-    stars : stars,
+    stars: stars,
     comment: comment
   };
 
   const newInsertInformation = await reviewCollection.insertOne(newReview);
-  if(newInsertInformation.insertedCount === 0) {
+  if (newInsertInformation.insertedCount === 0) {
     throw `Failed to create the review`;
   }
   const newId = newInsertInformation.insertedId;
   return await this.getReviewById(String(newId));
-  
 }
 
-async function updateComment(id, updatedComment ) {
+
+async function updateReview(id, updatedStars, updatedComment) {
+  return this.getReviewById(String(id)).then(currentReview => {
+    let reviewUpdateInfo = {
+      stars: updatedStars,
+      comment: updatedComment
+    };
+
+    let updateCommand = {
+      $set: reviewUpdateInfo
+    };
+    console.log("hitprefinal");
+    return review().then(reviewCollection => {
+      const parsedId = ObjectId.createFromHexString(id);
+      return reviewCollection
+        .updateOne({ _id: parsedId }, updateCommand)
+        .then(() => {
+          return this.getReviewById(String(id));
+        });
+    });
+  });
+}
+
+
+async function updateComment(id, updatedComment) {
   return this.getReviewById(String(id)).then(currentReview => {
     let reviewUpdateInfo = {
       comment: updatedComment
@@ -57,41 +80,45 @@ async function updateComment(id, updatedComment ) {
     let updateCommand = {
       $set: reviewUpdateInfo
     };
-    console.log("hitprefinal")
+    console.log("hitprefinalyoloooooooo");
     return review().then(reviewCollection => {
       const parsedId = ObjectId.createFromHexString(id);
-      return reviewCollection.updateOne({ _id: parsedId }, updateCommand).then(() => {
-        return this.getReviewById(String(id));
-      });
+      console.log("am stuck here")
+      return reviewCollection
+        .updateOne({ _id: parsedId }, updateCommand)
+        .then(() => {
+          return this.getReviewById(String(id));
+        });
     });
   });
 }
 
-async function updateStars(id, updatedStars ) {
+async function updateStars(id, updatedStars) {
   return this.getReviewById(String(id)).then(currentReview => {
     let reviewUpdateInfo = {
-      comment: updatedStars
+      stars: updatedStars
     };
 
     let updateCommand = {
       $set: reviewUpdateInfo
     };
-    console.log("hitprefinal")
+    console.log("hitprefinal");
     return review().then(reviewCollection => {
       const parsedId = ObjectId.createFromHexString(id);
-      return reviewCollection.updateOne({ _id: parsedId }, updateCommand).then(() => {
-        return this.getReviewById(String(id));
-      });
+      return reviewCollection
+        .updateOne({ _id: parsedId }, updateCommand)
+        .then(() => {
+          return this.getReviewById(String(id));
+        });
     });
-  });  
-
+  });
 }
 
-async function remove(id) {
+async function deleteReview(id) {
   if (!id) throw "You must provide an id to search for";
-  if (typeof id !== 'string') {
+  if (typeof id !== "string") {
     throw ` incorrect input please enter a valid id check type maybe`;
-      } 
+  }
   const reviewCollection = await review();
   const parsedId = ObjectId.createFromHexString(id);
   const obj = await this.getReviewById(String(parsedId));
@@ -103,10 +130,11 @@ async function remove(id) {
 }
 
 module.exports = {
-  getAll,
+  getAllReview,
   getReviewById,
   addReview,
+  updateReview,
   updateComment,
   updateStars,
-  remove
+  deleteReview
 };
