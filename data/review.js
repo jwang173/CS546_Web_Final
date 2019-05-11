@@ -16,6 +16,16 @@ async function getAllReview() {
 }
 
 async function getReviewById(id) {
+  if (!id) throw "You must provide an id to search for";
+  if (typeof id !== "string") {
+    throw ` incorrect input please enter a valid id check type maybeEE`;
+  }
+  if (arguments.length != 1) {
+    throw "The input for getbyId function should be only one";
+  }
+  if(typeof id === "undefined") {
+    throw "The input shouldn't be undefined";
+}
   const reviewCollections = await review();
   let parsedReviewId = ObjectId.createFromHexString(id);
   let review_ = await reviewCollections.findOne({ _id: parsedReviewId });
@@ -27,6 +37,15 @@ async function getReviewById(id) {
 }
 
 async function addReview(userId, date, stars, comment) {
+  if(arguments.length < 4) {
+    throw "You should enter all four";
+  }
+  if (!stars) throw "You must provide stars";
+        if (typeof comment !== 'string' || typeof userId !== 'string') {
+          throw ` incorrect input please enter a valid input check type for comment  or id`;
+            }
+        
+      //if(typeof date !== '')
   const reviewCollection = await review();
   //const usersCollection = await users_();
 
@@ -47,8 +66,22 @@ async function addReview(userId, date, stars, comment) {
   return await this.getReviewById(String(newId));
 }
 
-
 async function updateReview(id, updatedStars, updatedComment) {
+  if (!id) throw "You must provide an id to search for";
+  if (typeof id !== "string") {
+    throw ` incorrect input please enter a valid id check type maybe`;
+  }
+  if(typeof updatedComment !== 'string'  && typeof updatedStars !== 'string'){
+    throw 'check type of input comment or stars'
+  }
+
+  if (!updatedComment){
+    throw 'enter comment'
+  }
+
+  if(!updatedStars){
+    throw 'enter stars'
+  }
   return this.getReviewById(String(id)).then(currentReview => {
     let reviewUpdateInfo = {
       stars: updatedStars,
@@ -70,8 +103,19 @@ async function updateReview(id, updatedStars, updatedComment) {
   });
 }
 
-
 async function updateComment(id, updatedComment) {
+  if (!id) throw "You must provide an id to search for";
+  if (typeof id !== "string") {
+    throw ` incorrect input please enter a valid id check type maybe`;
+  }
+  if(typeof updatedComment !== 'string'){
+    throw 'check type of input comment or stars'
+  }
+
+  if (!updatedComment){
+    throw 'enter comment'
+  }
+
   return this.getReviewById(String(id)).then(currentReview => {
     let reviewUpdateInfo = {
       comment: updatedComment
@@ -83,7 +127,7 @@ async function updateComment(id, updatedComment) {
     console.log("hitprefinalyoloooooooo");
     return review().then(reviewCollection => {
       const parsedId = ObjectId.createFromHexString(id);
-      console.log("am stuck here")
+      console.log("am stuck here");
       return reviewCollection
         .updateOne({ _id: parsedId }, updateCommand)
         .then(() => {
@@ -94,6 +138,16 @@ async function updateComment(id, updatedComment) {
 }
 
 async function updateStars(id, updatedStars) {
+  if (!id) throw "You must provide an id to search for";
+  if (typeof id !== "string") {
+    throw ` incorrect input please enter a valid id check type maybe`;
+  }
+  if(typeof updatedStars !== 'string'){
+    throw 'check type of input comment or stars'
+  }
+  if(!updatedStars){
+    throw 'enter stars'
+  }
   return this.getReviewById(String(id)).then(currentReview => {
     let reviewUpdateInfo = {
       stars: updatedStars
