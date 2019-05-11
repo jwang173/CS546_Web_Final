@@ -50,6 +50,13 @@ let exportedMethods = {
     if (!user) throw 'User was not found!';
     return user;
   },
+
+  async checkForUserByEmail(email) {
+    const userCollection = await users();
+    const user = await userCollection.findOne({ email: email });
+    if (!user) return false;
+    return true;
+  },
   
   async addUser(email, name, hashedPassword) {
     // const userCollection = await users();

@@ -2,13 +2,12 @@ const express = require("express");
 const router = express.Router();
 const users = require("../data/user");
 const auth = require("../middleware/auth")
+var xss = require("xss");
 
 
 router.get("/", async (req, res, next) => {
   if (req.cookies.name === 'AuthCookie') {
-    console.log("GET USER, AUTH TRUE")
-    console.log(req.session.user)
-    const thisUser = await users.getUserById(req.session.user._id)
+    // const thisUser = await users.getUserById(req.session.user._id)
     res.redirect("/user")
   } 
   else {
@@ -18,9 +17,8 @@ router.get("/", async (req, res, next) => {
 
 
 router.post("/", async (req, res, next) => {
-  let email = req.body.email;
-  let name = req.body.name
-  let password = req.body.password
+  let email = xss(req.body.email);
+  let password = xss(req.body.password);
   let emailresult, passwordresult
 
   if (email && password) {

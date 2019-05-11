@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const auth = require("../middleware/auth")
 
 // Our Sub Routers
 const menuRouter = require('./menu');
@@ -11,7 +12,12 @@ const signupRouter = require('./signup');
 
 
 router.get("/", (req, res) => {
-  res.render("home/home", { title: "Home" });
+  if (req.cookies.name === 'AuthCookie') {
+    res.render("home/home", { title: "Home", auth: true });
+  } 
+  else {
+    res.render("home/home", { title: "Home" });
+  }
 });
 
 
