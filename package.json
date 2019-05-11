@@ -29,6 +29,7 @@
     "express-handlebars": "^3.0.2",
     "express-session": "^1.16.1",
     "mongodb": "^3.2.4",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "xss": "^1.0.6"
   }
 }
