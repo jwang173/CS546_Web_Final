@@ -26,6 +26,8 @@ async function main() {
         const id_2 = keerthana._id;
         const patrick = await user.addUser("patrick@gmail.com","Patrick","$2a$16$4o0WWtrq.ZefEmEbijNCGukCezqWTqz1VWlPm/xnaLM8d3WlS5pnK");
         const id_3 = patrick._id;
+        const user_email3 = patrick.email;
+        console.log(user_email3);
         // const rob = await user.addUser("rob@gmail.com","Phill","$2a$16$7JKSiEmoP3GNDSalogqgPu0sUbwder7CAN/5wnvCWe6xCKAKwlTD.");
         // const id = rob._id;
         // // const alex = await user.addUser("phil@gmail.com","Phill","$2a$16$7JKSiEmoP3GNDSalogqgPu0sUbwder7CAN/5wnvCWe6xCKAKwlTD.");
@@ -38,6 +40,7 @@ async function main() {
         const firstReview = await review.addReview( String(id_1),"2018-05-27","5","The food was very tasty");
         const secondReview = await review.addReview( String(id_2),"2018-04-29","4","The food was very yummy");
         const thirdReview = await review.addReview( String(id_3),"2018-02-26","3","The food was very spicy");
+        //const fourthReview = await review.postReview(user_email3,"2018-02-26","3","The food was very spicy" )
        // console.log(firstReview)
     } catch(e) {
         console.log(e);
