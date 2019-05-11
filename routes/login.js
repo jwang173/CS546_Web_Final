@@ -6,12 +6,13 @@ const auth = require("../middleware/auth")
 
 router.get("/", async (req, res, next) => {
   if (req.cookies.name === 'AuthCookie') {
+    console.log("GET USER, AUTH TRUE")
     console.log(req.session.user)
     const thisUser = await users.getUserById(req.session.user._id)
-    res.redirect({ user: thisUser }, "/user")
+    res.redirect("/user")
   } 
   else {
-    res.render("users/login", { title: "Create Account" });
+    res.render("users/login", { title: "Log In" });
   }
 });
 
@@ -29,13 +30,11 @@ router.post("/", async (req, res, next) => {
     if (emailresult && passwordresult.status) {
         let { _id, email } = passwordresult.user
         res.cookie('name', 'AuthCookie')
-        let user = {
-            _id,
-            email,
-            name
-        }
+        let user = await users.getUserById(_id)
+
         req.session.user = user
-        res.redirect("/")
+        console.log(req.session.user)
+        res.redirect("/user")
     }
     else {
       res.status(401).render("users/login", { title: "Login", message: "The username or password provided is incorrect." })
