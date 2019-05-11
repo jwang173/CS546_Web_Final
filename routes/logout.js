@@ -4,9 +4,11 @@ const users = require("../data/user");
 const auth = require("../middleware/auth")
 
 
-router.get("/logout", (req, res, next) => {
+router.get("/", (req, res, next) => {
     res.clearCookie('name')
+    // req.session.user
     res.redirect("/")
+    console.log("redirect")
   });
     
 
