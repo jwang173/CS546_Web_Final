@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+
 const {
   menu,
   upload
@@ -23,6 +24,17 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  let parsedid = req.params.id.toString();
+  let getMenu = await upload.getById(parsedid);
+  // console.log(parsedid)
+  // let arrExt = getMenu.mimetype;
+  //   if (arrExt == 'image/png' || arrExt == 'image/jpeg' || arrExt == 'image/bmp') {
+  //       mMenu = JSON.stringify(getMenu);
+        res.render("menu/openmenu", { menu: getMenu, css: "openmenu.css" });
+    // }
+});
+
 // router.get('/:id', async (req, res) => {
 //   try {
 //     let food = await menu.getById(req.params.id);
@@ -36,19 +48,20 @@ router.post('/', async (req, res) => {
   try {
     let name = req.body.search;
     let result = await menu.getByName(name);
-    let List = result;
-    let Liststr = JSON.stringify(result);
-    List.forEach(element => {
-      let arrExt = element.mMimetype;
-      if(arrExt == "image/png" || arrExt == "image/jpeg" || arrExt == "image/bmp") {
-        element.img = true;
-      }
-    });
-    if(Liststr == JSON.stringify([])) {
-      res.render("menu/menu", {errMsg: "Menu not found"});
-    } else {
-      res.render("menu/menu", {food: List, css: "some.css"})
-    }
+    console.log(result);
+    // let List = result;
+    // let Liststr = JSON.stringify(result);
+    // List.forEach(element => {
+    //   let arrExt = element.mMimetype;
+    //   if(arrExt == "image/png" || arrExt == "image/jpeg" || arrExt == "image/bmp") {
+    //     element.img = true;
+    //   }
+    // });
+    // if(Liststr == JSON.stringify([])) {
+    //   res.render("menu/menu", {errMsg: "Menu not found"});
+    // } else {
+      res.render("menu/menu", {food: result, css: "some.css"})
+    // }
   } catch(e) {
     res.render("menu/menu", {errMsg: e});
   }

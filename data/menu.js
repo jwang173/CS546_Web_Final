@@ -18,7 +18,7 @@ async function CheckIsProStr(str) {
 
 async function CheckIsDefStr(str) {
   if(!str) {
-      throw "The input should be existed";
+      throw "The input should be existed with str";
   }
   
   if(typeof str === "undefined") {

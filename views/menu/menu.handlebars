@@ -16,10 +16,10 @@
     <div class="border">
         <img src="../{{this.imagepath}}" class="imagealign">
         <label>{{this.name}}</label><br>
-        <form method="GET" action="/uploadMenu/{{this._id}}">
+        <form method="GET" action="/menu/{{this._id}}">
             <button type="submit" value="{{this._id}}">Open</button>
         </form>
-        <form method="GET" action="//uploadMenu/{{this._id}}">
+        <form method="GET" action="/order/{{this._id}}">
             <button type="submit" value="{{this._id}}">Add to the Cart</button>
         </form>
     </div>

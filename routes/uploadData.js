@@ -62,12 +62,14 @@ router.post("/",upload.single('file'), async (req, res) => {
 
 });
 
-router.get("/:id", async (req, res) => {
-  let getMenu = await uploadData.getById(req.params.id);
-  let arrExt = getMenu.mMimetype;
-    if (arrExt == 'image/png' || arrExt == 'image/jpeg' || arrExt == 'image/bmp') {
-        mMenu = JSON.stringify(getMenu);
-        res.render("menu/openmenu", { menu: JSON.parse(mMenu), css: "openmenu.css" });
-    }
-});
+// router.get("/:id", async (req, res) => {
+//   let parsedid = req.params.id.toString();
+//   let getMenu = await uploadData.getById(parsedid);
+//   // console.log(parsedid)
+//   // let arrExt = getMenu.mimetype;
+//   //   if (arrExt == 'image/png' || arrExt == 'image/jpeg' || arrExt == 'image/bmp') {
+//   //       mMenu = JSON.stringify(getMenu);
+//         res.render("menu/openmenu", { menu: JSON.parse(mMenu), css: "openmenu.css" });
+//     // }
+// });
 module.exports = router;

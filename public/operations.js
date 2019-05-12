@@ -1,7 +1,7 @@
-function openRecipe(mID) {
+function openmenu(mID) {
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:3000/uploadMenu/' + mID,
+        url: 'http://localhost:3000/menu/' + mID,
         success: function (data) {
             $('body').html(data);
             console.log(data);
