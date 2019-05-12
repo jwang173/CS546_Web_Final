@@ -137,8 +137,8 @@ async function create(name, price, description, imageinfo) {
   await CheckIsDefNum(price);
   await CheckIsProNum(price);
   // await CheckIsDefStr(description);
-  await CheckIsProStr(description);
-  await CheckIsObj(imageinfo);
+  // await CheckIsProStr(description);
+  // await CheckIsObj(imageinfo);
 
   let newFood = {
     name: "",
